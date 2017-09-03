@@ -6,14 +6,18 @@ var controllers = require('../controllers/fblogincontroller')
 
 var setAccessToken = (req, res, next) => {
   console.log(req.headers.fbaccesstoken,'=====');
+  if(req.headers.fbaccesstoken!== undefined){
   FB.setAccessToken(req.headers.fbaccesstoken);
   next()
+  }else{
+    res.send('anda tidak memiliki akses token fb/ akses token fb anda salah')
+  }
 }
 
 
 /* GET users listing. */
-router.get('/todo/login-facebook', setAccessToken, controllers.login);
-router.get('/todo/get-user', setAccessToken, controllers.getDataUser);
-router.delete('/todo/delete-user/:id', setAccessToken, controllers.removeUser);
+router.get('/user/login-facebook', setAccessToken, controllers.login);
+router.get('/user', setAccessToken, controllers.getDataUser);
+router.delete('/user/:id', setAccessToken, controllers.removeUser);
 
 module.exports = router;

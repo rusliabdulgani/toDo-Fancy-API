@@ -8,13 +8,12 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      localStorage.setItem('fbaccesstoken',response.authResponse.accessToken)
+      var dataUSer = {fbaccesstoken: response.authResponse.accessToken, userID: response.authResponse.userID}
+      localStorage.setItem('fbaccesstoken', JSON.stringify(dataUSer))
       getDataUser()
     }else{
       localStorage.removeItem('fbaccesstoken')
-      if(!localStorage.getItem('jwttoken')){
         window.location.href='index.html'
-      }
     }
   }
   
@@ -52,9 +51,10 @@
    }(document, 'script', 'facebook-jssdk'));
    
    function getDataUser() {
-     axios.get(`http://localhost:3000/api/todo/login-facebook`, {
+     var accessToken = JSON.parse(localStorage.getItem('fbaccesstoken'))
+     axios.get(`http://localhost:3000/api/user/login-facebook`, {
        headers: {
-         fbaccesstoken: localStorage.getItem('fbaccesstoken')
+         fbaccesstoken: accessToken.fbaccesstoken
        }
      })
      .then( result => {

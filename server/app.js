@@ -3,7 +3,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 var index = require('./routes/index');
-var todo = require('./routes/todo');
+var user = require('./routes/user');
 var cors = require('cors')
 require('dotenv').config()
 
@@ -28,6 +28,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/api', todo);
+app.use('/api', user);
 
 module.exports = app;

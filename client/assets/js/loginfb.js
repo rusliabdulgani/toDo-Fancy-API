@@ -8,7 +8,8 @@
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      localStorage.setItem('fbaccesstoken',response.authResponse.accessToken)
+      var dataUSer = {fbaccesstoken: response.authResponse.accessToken, userID: response.authResponse.userID}
+      localStorage.setItem('fbaccesstoken', JSON.stringify(dataUSer))
       window.location.href="main.html"
     } 
   }
