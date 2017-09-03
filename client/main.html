@@ -14,17 +14,23 @@
     <h1>Hello world</h1>  
     </div>
     <div id="app">
+      <form method="post" @submit.prevent="addTodo()">
+        <input type="text" name="todo" placeholder="input todo here.." v-model="todo">
+        <button name="button">add todo</button>
+      </form>
       <table>
         <thead>
           <tr>
             <td>Todo</td>
             <td>Done</td>
+            <td>Actions</td>
           </tr>
         </thead>
         <tbody>
           <tr v-for="todo in todolist">
             <td>{{ todo.todo }}</td>
             <td>{{ doneValue }}</td>
+            <td><button type="submit" @click="deleteTodo(todo._id)">hapus</button></td>
           </tr>
         </tbody>
       </table>

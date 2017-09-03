@@ -93,7 +93,7 @@ var getTodoUser = (req, res) => {
 var createTodo = (req, res) => {
   modelTodo.create({
     todo: req.body.todo,
-    userId: header._id,
+    userId: req.body.userId,
     done: false
   })
   .then( data => {

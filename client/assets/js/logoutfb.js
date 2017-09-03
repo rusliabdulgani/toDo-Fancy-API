@@ -72,8 +72,33 @@
      el: '#app',
      data: {
        todolist: [],
+       todo: '',
        user_id: '',
        done: false
+     },
+     methods: {
+       deleteTodo(id){
+         if(confirm('Are you sure want to delete this todo? ')){
+           axios.delete(`http://localhost:3000/api/todo/${id}`)
+           .then( result => {
+             console.log(result);
+           })
+         }else{
+           console.log('tidak jadi delete');
+         }
+       },
+       addTodo(){
+         let self = this
+         var accessToken = JSON.parse(localStorage.getItem('fbaccesstoken'))
+         this.user_id = accessToken._id
+         axios.post(`http://localhost:3000/api/todo`, {
+           todo: this.todo,
+           userId: this.user_id
+         })
+         .then( result => {
+           console.log('berhasil add todo', result);
+         })
+       }
      },
      computed: {
        doneValue(){
