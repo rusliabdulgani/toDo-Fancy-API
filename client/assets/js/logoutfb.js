@@ -54,14 +54,60 @@
      var accessToken = JSON.parse(localStorage.getItem('fbaccesstoken'))
      axios.get(`http://localhost:3000/api/user/login-facebook`, {
        headers: {
-         fbaccesstoken: accessToken.fbaccesstoken
+         fbaccesstoken: accessToken.fbaccesstoken,
+         userID: accessToken.userID
        }
      })
      .then( result => {
-       console.log(result);
+       var token = JSON.parse(localStorage.getItem('fbaccesstoken'))
+       token['_id'] = result.data._id
+       localStorage.setItem('fbaccesstoken',JSON.stringify(token))
      })
      .catch( err => {
        console.log(err);
      })
    }
+   
+   var app = new Vue({
+     el: '#app',
+     data: {
+       todolist: [],
+       user_id: '',
+       done: false
+     },
+     computed: {
+       doneValue(){
+         return this.done ? 'selesai' : 'belum selesai'
+       }
+     },
+     created: function(){
+       var accessToken = JSON.parse(localStorage.getItem('fbaccesstoken'))
+       axios.get(`http://localhost:3000/api/user/login-facebook`, {
+         headers: {
+           fbaccesstoken: accessToken.fbaccesstoken,
+           userID: accessToken.userID,
+           _id: accessToken._id
+         }
+       })
+       .then( result => {
+         var token = JSON.parse(localStorage.getItem('fbaccesstoken'))
+         token['_id'] = result.data._id
+         localStorage.setItem('fbaccesstoken',JSON.stringify(token))
+         axios.get(`http://localhost:3000/api/todo-user`, {
+           headers: {
+             fbaccesstoken: token.fbaccesstoken,
+             userID: token.userID,
+             _id: token._id
+           }
+         })
+         .then( hasil => {
+           this.todolist = hasil.data
+         })
+       })
+       .catch( err => {
+         console.log(err);
+       })
+       
+     }
+   })
    

@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var todoSchema = new Schema({
   todo: String,
+  done: Boolean,
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User'

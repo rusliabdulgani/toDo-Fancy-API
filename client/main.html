@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
   </head>
   <body>
@@ -11,6 +12,22 @@
       <fb:login-button autologoutlink='true' scope="public_profile,email,publish_actions,user_posts" onlogin="checkLoginState();">
     </fb:login-button>
     <h1>Hello world</h1>  
+    </div>
+    <div id="app">
+      <table>
+        <thead>
+          <tr>
+            <td>Todo</td>
+            <td>Done</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="todo in todolist">
+            <td>{{ todo.todo }}</td>
+            <td>{{ doneValue }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </body>
   <script src="assets/js/logoutfb.js"></script>
