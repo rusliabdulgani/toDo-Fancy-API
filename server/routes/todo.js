@@ -12,6 +12,8 @@ var setAccessToken = (req, res, next) => {
 
 
 /* GET users listing. */
-router.get('/todo/login-facebook', setAccessToken, controllers);
+router.get('/todo/login-facebook', setAccessToken, controllers.login);
+router.get('/todo/get-user', setAccessToken, controllers.getDataUser);
+router.delete('/todo/delete-user/:id', setAccessToken, controllers.removeUser);
 
 module.exports = router;
